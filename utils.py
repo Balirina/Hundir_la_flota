@@ -3,19 +3,26 @@ import random
 from jugador import Jugador
 
 
-#Función para crear una matriz del tamaño que se le pasa como argumento
+
 def crear_tablero(tamanio):
+    #Función para crear una matriz del tamaño que se le pasa como argumento
+    #devuelve un tablero vacio
     tablero = np.full((tamanio,tamanio), "_")
     return tablero
 
-#Función para mostrar tablero
+
 def mostrar_tablero(tablero):
+    #Función para mostrar tablero
+    #recibe como parametro el tablero que se quiere mostrar
     for fila in tablero:
         print("".join(fila))
 
-#Función que recibe como parametro un jugador y va colocando en su tablero los barcos que recibe de la funcion crear_barcos.
-#También los barcos se guardan en el atributo barcos del jugador para ir borandolas mas adelante 
+
 def colocar_barcos(jugador: Jugador):
+    #Función que recibe como parametro un jugador 
+    #y va colocando en su tablero los barcos que devuelve la funcion crear_barcos.
+    #También los barcos se guardan en el atributo barcos del jugador 
+    # para ir borandolas mas adelante cada vez que un barco este disparado
     tablero = jugador.mi_tablero
     barc = crear_barcos()
     jugador.barcos = barc
@@ -26,8 +33,10 @@ def colocar_barcos(jugador: Jugador):
             y = j[1]
             tablero[x][y] = "O"
     
-#Función que simplemente pide al usuario las coordenadas y las devuelve como "x" y "y" 
+
 def disparar():
+    #Función que simplemente pide al usuario las coordenadas mediante un input del teminal 
+    # y las devuelve como "x" y "y" 
     coord = input("Introduce las coordenadas donde quieres disparar: ")
     coord = coord.split()
     if len(coord) != 2 and coord[0].isnumeric() == False and coord[1].isnumeric() == False:
@@ -37,8 +46,12 @@ def disparar():
         y = int(coord[1])
     return x, y
 
-#Función para crear barcos partiendo de un array de esloras y que devuelva una lista con posiciones de estos barcos
+
 def crear_barcos():
+    #Función para crear barcos partiendo de un array de esloras
+    #devuelve una lista con listas de posiciones de estos barcos
+    #antes de añadir un nuevo barco se comprueba si este barco o olguna posicion suya
+    # no existe ya entre los barcos añadidos anteriormente
     barcos = []
     esloras = [4, 3, 3, 2, 2, 2]
     for  eslora in esloras:
@@ -50,8 +63,10 @@ def crear_barcos():
                 added = True
     return barcos
     
-#Función que crea un solo barco de una longitud que recibe como parametro
+
 def crear_barco(long):
+    #Función que crea un solo barco de una longitud que recibe como parametro
+    #La orientación es aleatoria
     orient = np.random.choice(["V","O"])
     x = np.random.randint(0, 9)
     y = np.random.randint(0, 9)
@@ -86,10 +101,11 @@ def crear_barco(long):
         else:
             crear_barco(2)
             
-#Función que recibe un array de barcos y unas coordenadas de una casilla ,
-#busca esta casilla en todos los barcos y la borra 
-# o borra el barco entero en el caso de que haya solo esta casilla
+
 def borrar_casilla(barcos, b):
+    #Función que recibe un array de barcos y unas coordenadas de una casilla ,
+    #busca esta casilla en todos los barcos y la borra 
+    # o borra el barco entero en el caso de que haya solo esta casilla
     ultima =False
     for i, barco in enumerate(barcos):
         if b in barco and len(barco) >1:
@@ -100,9 +116,10 @@ def borrar_casilla(barcos, b):
             ultima = True
     return ultima
             
-#Función que recibe la lista de los barcos y un barco, 
-# busca este barco en la lista y devuelve True si lo encuentra
+
 def comprobar_exist(barcos, b):
+    #Función que recibe la lista de los barcos y un barco, 
+    # busca este barco en la lista y devuelve True si lo encuentra
     if b in barcos:
         return True
     for bb in barcos:
@@ -112,8 +129,9 @@ def comprobar_exist(barcos, b):
     return False
 
 
-#Función para preparar los jugadores con sus tableros
+
 def preparar_juego():
+    #Función para preparar los jugadores con sus tableros
     name1 = input("Introduce tu nombre ")
     name2 = "Capitan MAC"
     tablero1 = crear_tablero(10)

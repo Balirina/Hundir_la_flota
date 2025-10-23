@@ -15,6 +15,8 @@ class Jugador:
     intentos = list()
     
     def __init__(self, nombre, mi_tab, tab_riv):
+        #Constructor de la clase Jugador
+        #Inicializa el nombre, su tablero y el tablero del rival
         self.nombre = nombre
         self.mi_tablero = mi_tab
         self.tablero_rival = tab_riv
