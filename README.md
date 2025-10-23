@@ -11,7 +11,8 @@ Este proyecto implementa el clásico juego de mesa **Hundir la Flota** utilizand
 ### 2. `Utils` 💥
 
 * **Propósito:** Es el fichero donde se guardan todas las **funciones** de las que se hace uso en este proyecto.
-* **Funciones:** 
+* **Funciones:**
+
 (`(crear_tablero)`) - crea un tablero teniendo en calculo el tamaño
 
 (`(mostrar_tablero)`) - función para imprimir el tablero
@@ -33,11 +34,11 @@ Este proyecto implementa el clásico juego de mesa **Hundir la Flota** utilizand
 
 ## Flujo Principal del Juego
 
-1.  Se solicitan el nombre del jugador y se inicializan cuatro  **`tableros`** (dos para el jugador y otro para la máquina).
-2.  Ambos tableros se pueblan con barcos de manera aleatoria.
+1.  Se solicita el nombre del jugador y se inicializan cuatro  **`tableros`** (dos para el jugador y dos para la máquina).
+2.  Un tablero de cada jugador se puebla con barcos de manera aleatoria.
 3.  El juego entra en un bucle de turnos:
     * El jugador crea un **`Disparo`** con coordenadas válidas.
-    * El disparo se aplica al **`Tablero`** de la máquina, y se guarda en la variable **barcos** del jugador que ha disparado.
+    * El disparo se aplica al **`Tablero`** de la máquina, y se guarda en la variable **barcos** del jugador.
     * La máquina genera un **`Disparo`** aleatorio.
     * El disparo se aplica al **`Tablero`** del jugador, que devuelve el resultado.
 4.  La partida continúa mientras hayan barcos de la maquina o del jugador. Una vez que se han hundido todos los barcos de algun jugador el juego finaliza y se declara un ganador.
