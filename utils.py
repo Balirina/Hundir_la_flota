@@ -16,8 +16,6 @@ def mostrar_tablero(tablero):
 #Función que recibe como parametro un jugador y va colocando en su tablero los barcos que recibe de la funcion crear_barcos.
 #También los barcos se guardan en el atributo barcos del jugador para ir borandolas mas adelante 
 def colocar_barcos(jugador: Jugador):
-    #guarda en tablero jugador.mi_tablero
-    #guarda tanbien los barcos
     tablero = jugador.mi_tablero
     barc = crear_barcos()
     jugador.barcos = barc
@@ -39,7 +37,7 @@ def disparar():
         y = int(coord[1])
     return x, y
 
-#Función para crear barcos partiendo de un array de esloras y que devuelve una lista con posiciones de estos barcos
+#Función para crear barcos partiendo de un array de esloras y que devuelva una lista con posiciones de estos barcos
 def crear_barcos():
     barcos = []
     esloras = [4, 3, 3, 2, 2, 2]
@@ -102,7 +100,7 @@ def borrar_casilla(barcos, b):
             ultima = True
     return ultima
             
-#Función que recide la lista de los barcos y un barco, 
+#Función que recibe la lista de los barcos y un barco, 
 # busca este barco en la lista y devuelve True si lo encuentra
 def comprobar_exist(barcos, b):
     if b in barcos:
@@ -116,8 +114,7 @@ def comprobar_exist(barcos, b):
 
 #Función para preparar los jugadores con sus tableros
 def preparar_juego():
-    #name1 = input("Introduce tu nombre")
-    name1 = "Irina"
+    name1 = input("Introduce tu nombre ")
     name2 = "Capitan MAC"
     tablero1 = crear_tablero(10)
     tablero2 = crear_tablero(10)

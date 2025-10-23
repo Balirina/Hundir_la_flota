@@ -3,32 +3,41 @@
 
 Este proyecto implementa el clásico juego de mesa **Hundir la Flota** utilizando el lenguaje de programación Python, separando la lógica del tablero, los barcos y la interacción.
 
-### 1. `Barco` ⚓
+### 1. `Jugador` ⚓
 
 * **Propósito:** Es la clase de **modelo de datos** para una embarcación individual.
-* **Responsabilidad:** Almacena la **eslora** (longitud) del barco y una lista de las **posiciones exactas** que ocupa en el tablero. Mantiene un registro de qué partes del barco han sido **tocadas** (`posiciones_tocadas_en_tablero`) y provee el método para determinar si el barco ha sido **hundido** (`get_esta_hundido`).
+* **Responsabilidad:** Almacena el **nombre** del jugador, una lista de los barcos con las **posiciones exactas** que ocupa en el tablero, otra lista que refleja **su tablero** con los barcos colocados y otra lista que refleja **el tablero del rival**. Mantiene un registro de los **intentos anteriores** para mostrar un aviso cuando se intenta disparar en las **mismas coordenadas**.
 
-### 2. `Disparo` 💥
+### 2. `Utils` 💥
 
-* **Propósito:** Es la clase que **modela una acción** del jugador o de la máquina.
-* **Responsabilidad:** Almacenar las coordenadas de un disparo (letra de columna y número de fila), asegurando que las coordenadas sean **válidas** para el tamaño del tablero actual. Permite obtener la tupla de índices (`(fila_index, columna_index)`) que el `Tablero` necesita para procesar el impacto.
+* **Propósito:** Es el fichero donde se guardan todas las **funciones** de las que se hace uso en este proyecto.
+* **Funciones:** 
+(`(crear_tablero)`) - crea un tablero teniendo en calculo el tamaño
 
-### 3. `Tablero` 🗺️
+(`(mostrar_tablero)`) - función para imprimir el tablero
 
-* **Propósito:** Es la clase central que contiene la **lógica del juego** y el **estado general** de la partida para un jugador.
-* **Responsabilidad:**
-    * **Almacenar:** Contiene la matriz **NumPy** (`self.tablero`) que representa la cuadrícula y la lista de objetos `Barco` y `Disparo` que se han realizado.
-    * **Gestión de Barcos:** Se encarga de la **colocación de barcos** aleatoriamente (`set_barcos_aleatoriamente`) y de verificar si quedan barcos por hundir (`get_quedan_barcos_por_hundir`).
-    * **Procesar Disparos:** Contiene la lógica para **recibir un disparo** (`set_disparo`), determinar el resultado (`AGUA`, `TOCADO`, `HUNDIDO`) y actualizar el estado de los barcos afectados.
-    * **Representación:** Genera la **vista del tablero** para el jugador que lo defiende (mostrando sus barcos) y la vista de ataque para el oponente (ocultando los barcos no tocados).
+(`(colocar_barcos)`) - funcion que recibe como parametro unn jugador y va colocando en su tablero los barcos que recibe de la función crear barcos. También los barcos se guardan en el atributo barcos del jugador para ir borandolas mas adelante.
+
+(`(disparar)`) - función que simplemente pide al usuario las coordenadas y las devuelve como un **x** y una **y**.
+
+(`(crear_barcos)`) - función para crear barcos partiendo de un array de esloras y que devuelva una lista con posiciones de estos barcos
+
+(`(crear_barco)`) - función que crea un solo barco de una longitud que recibe como parametro
+
+(`(borrar_castilla)`) - función que recibe un array de barcos y unas coordenadas de una casilla, busca esta casilla en todos los barcos y la borra o borra el barco entero en el caso de que este barco solo tiene esta casilla.
+
+(`(comprobar_exist)`) - función que recibe la lista de los barcos y un barco, busca este barco en la lista y devuelve True si lo encuentra
+
+(`(preparar_juego)`) - función para preparar los jugadores con sus tableros
+
 
 ## Flujo Principal del Juego
 
-1.  Se solicitan las dimensiones del tablero y se inicializan dos instancias de **`Tablero`** (uno para el jugador y otro para la máquina).
-2.  Ambos tableros se pueblan con instancias de **`Barco`** de manera aleatoria.
+1.  Se solicitan el nombre del jugador y se inicializan cuatro  **`tableros`** (dos para el jugador y otro para la máquina).
+2.  Ambos tableros se pueblan con barcos de manera aleatoria.
 3.  El juego entra en un bucle de turnos:
     * El jugador crea un **`Disparo`** con coordenadas válidas.
-    * El disparo se aplica al **`Tablero`** de la máquina, que devuelve el resultado.
+    * El disparo se aplica al **`Tablero`** de la máquina, y se guarda en la variable **barcos** del jugador que ha disparado.
     * La máquina genera un **`Disparo`** aleatorio.
     * El disparo se aplica al **`Tablero`** del jugador, que devuelve el resultado.
-4.  La partida continúa hasta que el método `get_quedan_barcos_por_hundir()` de uno de los tableros retorna `False`, declarando un ganador.
+4.  La partida continúa mientras hayan barcos de la maquina o del jugador. Una vez que se han hundido todos los barcos de algun jugador el juego finaliza y se declara un ganador.
